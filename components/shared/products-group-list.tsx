@@ -27,13 +27,15 @@ export const ProductsGroupList: FC<Props> = ({ categoryId, title, items, listCla
     if (intersection?.isIntersecting) setActiveCategoryId(categoryId);
   }, [intersection?.isIntersecting, categoryId, setActiveCategoryId]);
 
+  console.log(items);
+
   return (
     <div className={className} id={title} ref={intersectionRef}>
-      <Title className="font-extrabold mb-5" text={title} size="lg" />
+      <Title className="mb-5 font-extrabold" text={title} size="lg" />
 
       <div className={cn("grid grid-cols-3 gap-[50px]", listClassName)}>
         {items.map((item) => (
-          <ProductCard key={item.id} id={item.id} name={item.name} price={item.items[0].price} imageUrl={item.items[0].imageUrl} />
+          <ProductCard key={item.id} id={item.id} name={item.name} price={item.items[0].price} imageUrl={item.imageUrl} />
         ))}
       </div>
     </div>

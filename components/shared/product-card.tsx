@@ -15,17 +15,19 @@ interface Props {
 }
 
 export const ProductCard: FC<Props> = ({ id, name, price, imageUrl, className }) => {
+  console.log(price);
+
   return (
     <div className={className}>
-      <Link href={`/product/${id}`}>
-        <div className="flex justify-center p-6 bg-secondary rounded-lg h-[260px]">
-          <img className="w-[215px] h-[215px] object-cover" src={imageUrl} alt={name} />
+      <Link href={`/product/${id}`} scroll={false}>
+        <div className="flex h-[260px] justify-center rounded-lg bg-secondary p-6">
+          <img className="h-[215px] w-[215px] object-cover" src={imageUrl} alt={name} />
         </div>
 
         <Title className="mb-1 mt-3 font-bold" text={name} size="sm" />
         <p className="text-sm text-gray-400">Ципленок, моцарелла, помидоры, орегано, сыр моцарелла, моцарелла, помидоры, орегано, сыр моцарелла</p>
 
-        <div className="flex justify-between items-center mt-4">
+        <div className="mt-4 flex items-center justify-between">
           <span className="text-[20px]">
             от <b>{price} ₼</b>
           </span>

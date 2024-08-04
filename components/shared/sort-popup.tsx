@@ -8,7 +8,7 @@ interface IProps {
 
 export const SortPopup: FC<IProps> = ({ className }) => {
   return (
-    <div className={cn("inline-flex items-center gap-1 bg-gray-50 px-5 h-[52px] rounded-2xl cursor-pointer", className)}>
+    <div className={cn("inline-flex h-[52px] cursor-pointer items-center gap-1 rounded-2xl bg-gray-50 px-5", className)}>
       <ArrowUpDown />
       <b>Сортировка:</b>
       <b className="text-primary">по цене</b>

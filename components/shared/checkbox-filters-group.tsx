@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, FC, useState } from "react";
 
-import { Input } from "../ui";
+import { Input, Skeleton } from "../ui";
 import { FilterCheckbox, FilterCheckboxProps } from "./filter-checkbox";
 
 type Item = FilterCheckboxProps;
@@ -9,10 +9,13 @@ type Item = FilterCheckboxProps;
 interface CheckboxFiltersGroupProps {
   title: string;
   items: Item[];
-  defaultItems: Item[];
+  defaultItems?: Item[];
   limit?: number;
+  loading?: boolean;
+  name?: string;
+  selected: Set<string>;
   searchInputPlaceholder?: string;
-  onChange?: (values: string[]) => void;
+  onClickCheckbox?: (id: string) => void;
   defaultValue?: string[];
   className?: string;
 }
@@ -22,8 +25,11 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
   items,
   defaultItems,
   limit = 5,
+  loading,
+  name,
+  selected,
   searchInputPlaceholder = "Поиск...",
-  onChange,
+  onClickCheckbox,
   defaultValue,
   className,
 }) => {
@@ -35,25 +41,45 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
     setSearchValue(e.target.value);
   };
 
+  if (loading) {
+    return (
+      <div className={className}>
+        <p className="mb-3 font-bold">{title}</p>
+        {[...new Array(limit)].map((_, index) => (
+          <Skeleton key={index} className="mb-5 h-6 rounded-[8px]" />
+        ))}
+        <Skeleton className="mb-5 h-6 w-28 rounded-[8px]" />
+      </div>
+    );
+  }
+
   return (
     <div className={className}>
-      <p className="font-bold mb-3">{title}</p>
+      <p className="mb-3 font-bold">{title}</p>
 
       {showAll && (
         <div className="mb-5">
-          <Input onChange={onChangeSearchInput} placeholder={searchInputPlaceholder} className="bg-gray-50 border-none" />
+          <Input onChange={onChangeSearchInput} placeholder={searchInputPlaceholder} className="border-none bg-gray-50" />
         </div>
       )}
 
-      <div className="flex flex-col gap-4 max-h-96 pr-2 overflow-auto scrollbar">
+      <div className="scrollbar flex max-h-96 flex-col gap-4 overflow-auto pr-2">
         {list.map((item, index) => (
-          <FilterCheckbox key={index} text={item.text} value={item.value} endAdornment={item.endAdornment} checked={false} onCheckedChange={(dsl) => console.log(dsl)} />
+          <FilterCheckbox
+            key={index}
+            text={item.text}
+            value={item.value}
+            endAdornment={item.endAdornment}
+            checked={selected.has(item.value)}
+            onCheckedChange={() => onClickCheckbox?.(item.value)}
+            name={name}
+          />
         ))}
       </div>
 
       {items.length > limit && (
         <div className={showAll ? "border-t border-t-neutral-100 pt-4" : ""}>
-          <button className="text-primary mt-3" onClick={() => setShowAll((prev) => !prev)}>
+          <button className="mt-3 text-primary" onClick={() => setShowAll((prev) => !prev)}>
             {showAll ? "Скрыть" : "+ Показать все"}
           </button>
         </div>
