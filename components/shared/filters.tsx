@@ -17,7 +17,10 @@ export const Filters: FC<Props> = ({ className }) => {
   const filters = useFilters();
   useQueryFilters(filters);
 
-  const list = ingredients.map((ingredient) => ({ text: ingredient.name, value: String(ingredient.id) }));
+  const list = ingredients.map((ingredient) => ({
+    text: ingredient.name,
+    value: String(ingredient.id),
+  }));
 
   const updatePrices = (prices: number[]) => {
     filters.setPrices("priceFrom", prices[0]);
@@ -58,10 +61,37 @@ export const Filters: FC<Props> = ({ className }) => {
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
         <p className="mb-3 font-bold">Цена от и до:</p>
         <div className="mb-5 flex gap-3">
-          <Input type="number" placeholder="0" min={0} max={1000} value={filters.prices.priceFrom} onChange={(e) => filters.setPrices("priceFrom", Number(e.target.value))} />
-          <Input type="number" placeholder="1000" min={100} max={1000} value={filters.prices.priceTo} onChange={(e) => filters.setPrices("priceTo", Number(e.target.value))} />
+          <Input
+            type="number"
+            placeholder="0"
+            min={0}
+            max={1000}
+            value={filters.prices.priceFrom}
+            onChange={(e) =>
+              filters.setPrices("priceFrom", Number(e.target.value))
+            }
+          />
+          <Input
+            type="number"
+            placeholder="1000"
+            min={100}
+            max={1000}
+            value={filters.prices.priceTo}
+            onChange={(e) =>
+              filters.setPrices("priceTo", Number(e.target.value))
+            }
+          />
         </div>
-        <RangeSlider min={0} max={1000} step={10} value={[filters.prices.priceFrom || 0, filters.prices.priceTo || 1000]} onValueChange={updatePrices} />
+        <RangeSlider
+          min={0}
+          max={1000}
+          step={10}
+          value={[
+            filters.prices.priceFrom || 0,
+            filters.prices.priceTo || 1000,
+          ]}
+          onValueChange={updatePrices}
+        />
       </div>
 
       <CheckboxFiltersGroup

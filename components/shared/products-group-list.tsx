@@ -15,7 +15,13 @@ interface Props {
   className?: string;
 }
 
-export const ProductsGroupList: FC<Props> = ({ categoryId, title, items, listClassName, className }) => {
+export const ProductsGroupList: FC<Props> = ({
+  categoryId,
+  title,
+  items,
+  listClassName,
+  className,
+}) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
 
   const intersectionRef = useRef(null);
@@ -33,7 +39,13 @@ export const ProductsGroupList: FC<Props> = ({ categoryId, title, items, listCla
 
       <div className={cn("grid grid-cols-3 gap-[50px]", listClassName)}>
         {items.map((item) => (
-          <ProductCard key={item.id} id={item.id} name={item.name} price={item.items[0].price} imageUrl={item.imageUrl} />
+          <ProductCard
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            price={item.items[0].price}
+            imageUrl={item.imageUrl}
+          />
         ))}
       </div>
     </div>

@@ -12,7 +12,9 @@ interface ReturnProps {
 }
 
 export const useIngredients = () => {
-  const [ingredients, setIngredients] = useState<ReturnProps["ingredients"]>([]);
+  const [ingredients, setIngredients] = useState<ReturnProps["ingredients"]>(
+    [],
+  );
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -20,7 +22,12 @@ export const useIngredients = () => {
       try {
         setLoading(true);
         const ingredients = await Api.ingredients.getAllIngredients();
-        setIngredients(ingredients.map((ingredient) => ({ id: ingredient.id, name: ingredient.name })));
+        setIngredients(
+          ingredients.map((ingredient) => ({
+            id: ingredient.id,
+            name: ingredient.name,
+          })),
+        );
       } catch (err) {
         console.error(err);
       } finally {

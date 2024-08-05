@@ -22,7 +22,9 @@ export const Header: FC<IProps> = ({ className }) => {
             <Image src="/logo.png" alt="logo." width={35} height={35} />
             <div>
               <h1 className="text-2xl font-black uppercase">Next Pizza</h1>
-              <p className="text-sm leading-3 text-gray-400">вкусней уже некуда</p>
+              <p className="text-sm leading-3 text-gray-400">
+                вкусней уже некуда
+              </p>
             </div>
           </div>
         </Link>
@@ -46,7 +48,10 @@ export const Header: FC<IProps> = ({ className }) => {
                 <ShoppingCart size={16} className="relative" strokeWidth={3} />
                 <b>5</b>
               </div>
-              <ArrowRight size={20} className="absolute right-5 -translate-x-2 opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+              <ArrowRight
+                size={20}
+                className="absolute right-5 -translate-x-2 opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+              />
             </Button>
           </div>
         </div>

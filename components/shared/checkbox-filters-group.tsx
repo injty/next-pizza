@@ -36,7 +36,11 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
   const [showAll, setShowAll] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
 
-  const list = showAll ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase())) : items.slice(0, limit);
+  const list = showAll
+    ? items.filter((item) =>
+        item.text.toLowerCase().includes(searchValue.toLowerCase()),
+      )
+    : items.slice(0, limit);
   const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
@@ -59,7 +63,11 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
 
       {showAll && (
         <div className="mb-5">
-          <Input onChange={onChangeSearchInput} placeholder={searchInputPlaceholder} className="border-none bg-gray-50" />
+          <Input
+            onChange={onChangeSearchInput}
+            placeholder={searchInputPlaceholder}
+            className="border-none bg-gray-50"
+          />
         </div>
       )}
 
@@ -79,7 +87,9 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
 
       {items.length > limit && (
         <div className={showAll ? "border-t border-t-neutral-100 pt-4" : ""}>
-          <button className="mt-3 text-primary" onClick={() => setShowAll((prev) => !prev)}>
+          <button
+            className="mt-3 text-primary"
+            onClick={() => setShowAll((prev) => !prev)}>
             {showAll ? "Скрыть" : "+ Показать все"}
           </button>
         </div>

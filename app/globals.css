@@ -54,7 +54,7 @@ html {
 
 .scrollbar::-webkit-scrollbar-track {
   border-radius: 6px;
-  background: #fff;
+  background: transparent;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {

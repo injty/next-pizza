@@ -15,14 +15,29 @@ interface ChooseProductModalProps {
   className?: string;
 }
 
-export const ChooseProductModal: FC<ChooseProductModalProps> = ({ className, product }) => {
+export const ChooseProductModal: FC<ChooseProductModalProps> = ({
+  className,
+  product,
+}) => {
   const router = useRouter();
   const isPizzaForm = Boolean(product.items[0].pizzaType);
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
-      <DialogContent className={cn("min-h-[550px] w-[1060px] max-w-[1060px] overflow-hidden bg-white p-0", className)}>
-        {isPizzaForm ? <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={[]} /> : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />}
+      <DialogContent
+        className={cn(
+          "min-h-[550px] w-[1060px] max-w-[1060px] overflow-hidden bg-white p-0",
+          className,
+        )}>
+        {isPizzaForm ? (
+          <ChoosePizzaForm
+            imageUrl={product.imageUrl}
+            name={product.name}
+            ingredients={product.ingredients}
+          />
+        ) : (
+          <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />
+        )}
       </DialogContent>
     </Dialog>
   );

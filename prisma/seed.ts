@@ -2,13 +2,21 @@ import { hashSync } from "bcrypt";
 import { prisma } from "./prisma-client";
 
 import { Prisma } from "@prisma/client";
-import { _ingredients, categories, products } from "./constats";
+import { _ingredients, categories, products } from "./constants";
 
 const randomDecimalNumber = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) * 10 + min * 10) / 10;
 };
 
-const generateProductItem = ({ productId, pizzaType, size }: { productId: number; pizzaType?: 1 | 2; size?: 20 | 30 | 40 }) => {
+const generateProductItem = ({
+  productId,
+  pizzaType,
+  size,
+}: {
+  productId: number;
+  pizzaType?: 1 | 2;
+  size?: 20 | 30 | 40;
+}) => {
   return {
     productId,
     price: randomDecimalNumber(190, 600),
@@ -52,7 +60,8 @@ async function up() {
   const pizza1 = await prisma.product.create({
     data: {
       name: "Пепперони фреш",
-      imageUrl: "https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp",
+      imageUrl:
+        "https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp",
       categoryId: 1,
       ingredients: {
         connect: _ingredients.slice(0, 5),
@@ -63,7 +72,8 @@ async function up() {
   const pizza2 = await prisma.product.create({
     data: {
       name: "Сырная",
-      imageUrl: "https://media.dodostatic.net/image/r:233x233/11EE7D610CF7E265B7C72BE5AE757CA7.webp",
+      imageUrl:
+        "https://media.dodostatic.net/image/r:233x233/11EE7D610CF7E265B7C72BE5AE757CA7.webp",
       categoryId: 1,
       ingredients: {
         connect: _ingredients.slice(5, 10),
@@ -74,7 +84,8 @@ async function up() {
   const pizza3 = await prisma.product.create({
     data: {
       name: "Чоризо фреш",
-      imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D61706D472F9A5D71EB94149304.webp",
+      imageUrl:
+        "https://media.dodostatic.net/image/r:584x584/11EE7D61706D472F9A5D71EB94149304.webp",
       categoryId: 1,
       ingredients: {
         connect: _ingredients.slice(10, 40),

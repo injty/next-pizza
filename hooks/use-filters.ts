@@ -28,13 +28,28 @@ interface ReturnProps extends Filters {
 }
 
 export const useFilters = (): ReturnProps => {
-  const searchParams = useSearchParams() as unknown as Map<keyof QueryFilters, string>;
+  const searchParams = useSearchParams() as unknown as Map<
+    keyof QueryFilters,
+    string
+  >;
 
-  const [selectedIngredients, { toggle: toggleIngredients }] = useSet(new Set<string>(searchParams.get("ingredients")?.split(",")));
+  const [selectedIngredients, { toggle: toggleIngredients }] = useSet(
+    new Set<string>(searchParams.get("ingredients")?.split(",")),
+  );
 
-  const [sizes, { toggle: toggleSizes }] = useSet(new Set<string>(searchParams.has("sizes") ? searchParams.get("sizes")?.split(",") : []));
+  const [sizes, { toggle: toggleSizes }] = useSet(
+    new Set<string>(
+      searchParams.has("sizes") ? searchParams.get("sizes")?.split(",") : [],
+    ),
+  );
 
-  const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(new Set<string>(searchParams.has("pizzaTypes") ? searchParams.get("pizzaTypes")?.split(",") : []));
+  const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
+    new Set<string>(
+      searchParams.has("pizzaTypes")
+        ? searchParams.get("pizzaTypes")?.split(",")
+        : [],
+    ),
+  );
 
   const [prices, setPrices] = useState<PriceProps>({
     priceFrom: Number(searchParams.get("priceFrom")) || undefined,
