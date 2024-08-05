@@ -2,8 +2,8 @@
 import { FC, useEffect, useRef } from "react";
 import { useIntersection } from "react-use";
 
-import { cn } from "@/lib/utils";
 import { useCategoryStore } from "@/store/category";
+import { cn } from "@/utils/lib/cn";
 import { ProductCard } from "./product-card";
 import { Title } from "./title";
 
@@ -26,8 +26,6 @@ export const ProductsGroupList: FC<Props> = ({ categoryId, title, items, listCla
   useEffect(() => {
     if (intersection?.isIntersecting) setActiveCategoryId(categoryId);
   }, [intersection?.isIntersecting, categoryId, setActiveCategoryId]);
-
-  console.log(items);
 
   return (
     <div className={className} id={title} ref={intersectionRef}>

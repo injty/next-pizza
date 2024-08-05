@@ -164,7 +164,7 @@ async function main() {
     await down();
     await up();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 

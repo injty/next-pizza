@@ -1,7 +1,7 @@
 "use client";
 import { useCategoryStore } from "@/store/category";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/lib/cn";
 import { Category } from "@prisma/client";
 import { FC } from "react";
 

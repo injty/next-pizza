@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/lib/cn";
 import { ArrowRight, ShoppingCart, User } from "lucide-react";
 import { Button } from "../ui";
 import { Container } from "./container";

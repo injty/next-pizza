@@ -22,7 +22,7 @@ export const useIngredients = () => {
         const ingredients = await Api.ingredients.getAllIngredients();
         setIngredients(ingredients.map((ingredient) => ({ id: ingredient.id, name: ingredient.name })));
       } catch (err) {
-        console.log(err);
+        console.error(err);
       } finally {
         setLoading(false);
       }

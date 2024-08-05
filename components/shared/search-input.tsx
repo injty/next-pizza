@@ -5,8 +5,8 @@ import Link from "next/link";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useClickAway, useDebounce } from "react-use";
 
-import { cn } from "@/lib/utils";
 import { Api } from "@/services/api-client";
+import { cn } from "@/utils/lib/cn";
 import { Search } from "lucide-react";
 
 interface Props {
@@ -30,7 +30,7 @@ export const SearchInput: FC<Props> = ({ className }) => {
         const response = await Api.products.search(searchQuery);
         setProducts(response);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     },
     500,
