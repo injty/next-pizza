@@ -67,9 +67,7 @@ export const Filters: FC<Props> = ({ className }) => {
             min={0}
             max={1000}
             value={filters.prices.priceFrom}
-            onChange={(e) =>
-              filters.setPrices("priceFrom", Number(e.target.value))
-            }
+            onChange={(e) => filters.setPrices("priceFrom", Number(e.target.value))}
           />
           <Input
             type="number"
@@ -77,21 +75,10 @@ export const Filters: FC<Props> = ({ className }) => {
             min={100}
             max={1000}
             value={filters.prices.priceTo}
-            onChange={(e) =>
-              filters.setPrices("priceTo", Number(e.target.value))
-            }
+            onChange={(e) => filters.setPrices("priceTo", Number(e.target.value))}
           />
         </div>
-        <RangeSlider
-          min={0}
-          max={1000}
-          step={10}
-          value={[
-            filters.prices.priceFrom || 0,
-            filters.prices.priceTo || 1000,
-          ]}
-          onValueChange={updatePrices}
-        />
+        <RangeSlider min={0} max={1000} step={10} value={[filters.prices.priceFrom || 0, filters.prices.priceTo || 1000]} onValueChange={updatePrices} />
       </div>
 
       <CheckboxFiltersGroup

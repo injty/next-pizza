@@ -12,9 +12,7 @@ interface ReturnProps {
 }
 
 export const useIngredients = () => {
-  const [ingredients, setIngredients] = useState<ReturnProps["ingredients"]>(
-    [],
-  );
+  const [ingredients, setIngredients] = useState<ReturnProps["ingredients"]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {

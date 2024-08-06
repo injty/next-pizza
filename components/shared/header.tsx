@@ -22,9 +22,7 @@ export const Header: FC<IProps> = ({ className }) => {
             <Image src="/logo.png" alt="logo." width={35} height={35} />
             <div>
               <h1 className="text-2xl font-black uppercase">Next Pizza</h1>
-              <p className="text-sm leading-3 text-gray-400">
-                вкусней уже некуда
-              </p>
+              <p className="text-sm leading-3 text-gray-400">вкусней уже некуда</p>
             </div>
           </div>
         </Link>

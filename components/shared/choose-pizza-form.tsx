@@ -1,8 +1,7 @@
 "use client";
 
-import { Ingredient } from "@prisma/client";
-import { FC, useState } from "react";
-import { useSet } from "react-use";
+import { Ingredient, ProductItem } from "@prisma/client";
+import { FC } from "react";
 
 import { Button } from "../ui";
 import { GroupVariants } from "./group-variants";
@@ -10,41 +9,27 @@ import { Ingredients } from "./ingredients";
 import { PizzaImage } from "./pizza-image";
 import { Title } from "./title";
 
-import {
-  PizzaSize,
-  pizzaSizes,
-  PizzaType,
-  pizzaTypes,
-} from "@/utils/constants/pizza";
+import { usePizzaOptions } from "@/hooks";
+import { getPizzaDetails } from "@/utils";
+import { PizzaSize, PizzaType, pizzaTypes } from "@/utils/constants/pizza";
 import { cn } from "@/utils/lib/cn";
 
 interface ChoosePizzaFormProps {
   imageUrl: string;
   name: string;
   ingredients: Ingredient[];
-  items?: any;
-  onClickAdd?: VoidFunction;
+  items: ProductItem[];
+  onClickAddCart?: VoidFunction;
   className?: string;
 }
 
-export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
-  className,
-  imageUrl,
-  name,
-  ingredients,
-  items,
-  onClickAdd,
-}) => {
-  const [size, setSize] = useState<PizzaSize>(20);
-  const [type, setType] = useState<PizzaType>(1);
+export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({ className, imageUrl, name, ingredients, items, onClickAddCart }) => {
+  const { size, type, selectedIngredients, addIngredient, availableSizes, setSize, setType } = usePizzaOptions(items);
+  const { textDetails, totalPrice } = getPizzaDetails(size, type, ingredients, items, selectedIngredients);
 
-  const [selectedIngredients, { toggle: addIngredient }] = useSet(
-    new Set<number>([]),
-  );
-
-  const textDetails =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, iste";
-  const totalPrice = 350;
+  const handleClickAdd = () => {
+    onClickAddCart?.();
+  };
 
   return (
     <div className={cn("flex h-full flex-1", className)}>
@@ -55,16 +40,8 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
         <p className="text-gray-400">{textDetails}</p>
 
         <div className="mt-5 flex flex-col gap-4">
-          <GroupVariants
-            items={pizzaSizes}
-            value={String(size)}
-            onClick={(value) => setSize(Number(value) as PizzaSize)}
-          />
-          <GroupVariants
-            items={pizzaTypes}
-            value={String(type)}
-            onClick={(value) => setType(Number(value) as PizzaType)}
-          />
+          <GroupVariants items={availableSizes} value={String(size)} onClick={(value) => setSize(Number(value) as PizzaSize)} />
+          <GroupVariants items={pizzaTypes} value={String(type)} onClick={(value) => setType(Number(value) as PizzaType)} />
         </div>
 
         <div className="scrollbar mt-5 h-[420px] overflow-auto rounded-md bg-gray-50 p-5">
@@ -82,7 +59,7 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
           </div>
         </div>
 
-        <Button className="mt-10 h-[55px] w-full rounded-[18px] px-10 text-base">
+        <Button onClick={handleClickAdd} className="mt-10 h-[55px] w-full rounded-[18px] px-10 text-base">
           Добавить в корзину за {totalPrice} ₼
         </Button>
       </div>
