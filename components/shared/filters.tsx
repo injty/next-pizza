@@ -42,7 +42,6 @@ export const Filters: FC<Props> = ({ className }) => {
           { text: "Традиционное", value: "2" },
         ]}
       />
-
       {/* checkboxes filters */}
       <CheckboxFiltersGroup
         title="Размеры"
