@@ -2,7 +2,7 @@
 import { FC, useEffect, useRef } from "react";
 import { useIntersection } from "react-use";
 
-import { useCategoryStore } from "@/store/category";
+import { useCategoryStore } from "@/store";
 import { cn } from "@/utils/lib/cn";
 import { ProductCard } from "./product-card";
 import { Title } from "./title";
