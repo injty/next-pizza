@@ -10,8 +10,8 @@ import { PizzaImage } from "./pizza-image";
 import { Title } from "./title";
 
 import { usePizzaOptions } from "@/hooks";
-import { getPizzaDetails } from "@/utils";
 import { PizzaSize, PizzaType, pizzaTypes } from "@/utils/constants/pizza";
+import { getPizzaDetails } from "@/utils/helpers";
 import { cn } from "@/utils/lib/cn";
 
 interface ChoosePizzaFormProps {
@@ -19,16 +19,19 @@ interface ChoosePizzaFormProps {
   name: string;
   ingredients: Ingredient[];
   items: ProductItem[];
-  onClickAddCart?: VoidFunction;
+  loading?: boolean;
+  onSubmit: (itemId: number, ingredients: number[]) => void;
   className?: string;
 }
 
-export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({ className, imageUrl, name, ingredients, items, onClickAddCart }) => {
-  const { size, type, selectedIngredients, addIngredient, availableSizes, setSize, setType } = usePizzaOptions(items);
+export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({ className, imageUrl, name, ingredients, items, loading, onSubmit }) => {
+  const { size, type, selectedIngredients, addIngredient, availableSizes, setSize, setType, currentItemId } = usePizzaOptions(items);
   const { textDetails, totalPrice } = getPizzaDetails(size, type, ingredients, items, selectedIngredients);
 
   const handleClickAdd = () => {
-    onClickAddCart?.();
+    if (currentItemId) {
+      onSubmit(currentItemId, Array.from(selectedIngredients));
+    }
   };
 
   return (
@@ -59,7 +62,7 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({ className, imageUrl,
           </div>
         </div>
 
-        <Button onClick={handleClickAdd} className="mt-10 h-[55px] w-full rounded-[18px] px-10 text-base">
+        <Button loading={loading} onClick={() => handleClickAdd()} className="mt-10 h-[55px] w-full rounded-[18px] px-10 text-base">
           Добавить в корзину за {totalPrice} ₼
         </Button>
       </div>

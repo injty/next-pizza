@@ -8,8 +8,8 @@ import { Button } from "../ui";
 import { CartDrawerItem } from "./cart-drawer-item";
 
 import { useCartStore } from "@/store";
-import { getCartDetails, getCartItemDetails } from "@/utils";
 import { PizzaSize, PizzaType } from "@/utils/constants/pizza";
+import { getCartItemDetails } from "@/utils/helpers";
 import { ArrowRight } from "lucide-react";
 
 interface CartDrawerProps {
@@ -17,11 +17,17 @@ interface CartDrawerProps {
 }
 
 export const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = ({ className, children }) => {
-  const { items, totalAmount, fetchCartItems } = useCartStore();
+  const { items, totalAmount, fetchCartItems, updateItemQuantity, removeCartItem } = useCartStore();
+
   useEffect(() => {
     fetchCartItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onClickCountButtons = (id: number, quantity: number, type: "plus" | "minus") => {
+    const newQuantity = type === "plus" ? quantity + 1 : quantity - 1;
+    updateItemQuantity(id, newQuantity);
+  };
 
   return (
     <Sheet>
@@ -38,19 +44,22 @@ export const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = ({ className, 
         </SheetHeader>
 
         <div className="-mx-6 mt-5 flex-1 overflow-auto">
-          <div className="mb-2">
-            {items.map(({ id, name, imageUrl, price, quantity, pizzaSize, pizzaType, ingredients }) => (
+          {items.map(({ id, name, imageUrl, price, quantity, pizzaSize, pizzaType, ingredients }) => (
+            <div key={id} className="mb-2">
               <CartDrawerItem
-                key={id}
                 id={id}
                 name={name}
                 imageUrl={imageUrl}
                 price={price}
                 quantity={quantity}
                 details={pizzaSize && pizzaType ? getCartItemDetails(pizzaType as PizzaType, pizzaSize as PizzaSize, ingredients) : ""}
+                onClickCountButtons={(type) => {
+                  onClickCountButtons(id, quantity, type);
+                }}
+                onClickCartItemRemove={() => removeCartItem(id)}
               />
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         <SheetFooter className="-mx-6 bg-white p-8">

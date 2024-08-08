@@ -1,6 +1,6 @@
 import { Ingredient, ProductItem } from "@prisma/client";
 
-import { PizzaSize, PizzaType } from "./constants/pizza";
+import { PizzaSize, PizzaType } from "../constants/pizza";
 
 /**
  *
