@@ -14,6 +14,7 @@ export { Header } from "./header";
 export { Ingredients } from "./ingredients";
 export { PizzaImage } from "./pizza-image";
 export { ProductCard } from "./product-card";
+export { ProductForm } from "./product-form";
 export { ProductsGroupList } from "./products-group-list";
 export { RangeSlider } from "./range-slider";
 export { SearchInput } from "./search-input";
