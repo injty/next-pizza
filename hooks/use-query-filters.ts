@@ -20,5 +20,6 @@ export const useQueryFilters = (filters: Filters) => {
     });
 
     router.push(`?${queryString}`, { scroll: false });
-  }, [filters, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters]);
 };

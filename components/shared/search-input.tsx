@@ -6,7 +6,7 @@ import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useClickAway, useDebounce } from "react-use";
 
 import { Api } from "@/services/api-client";
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 import { Search } from "lucide-react";
 
 interface Props {

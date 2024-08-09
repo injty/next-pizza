@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 import { Checkbox } from "../ui";
 
 export interface FilterCheckboxProps {

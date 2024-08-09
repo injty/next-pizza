@@ -8,7 +8,7 @@ import { CartButton } from "./cart-button";
 import { Container } from "./container";
 import { SearchInput } from "./search-input";
 
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 
 interface IProps {
   className?: string;

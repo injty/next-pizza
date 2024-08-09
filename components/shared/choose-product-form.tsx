@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { PizzaImage } from "./pizza-image";
 
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 import { Button } from "../ui";
 import { Title } from "./title";
 

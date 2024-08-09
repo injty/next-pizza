@@ -1,4 +1,4 @@
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 import { ArrowUpDown } from "lucide-react";
 import { FC, ReactNode } from "react";
 

@@ -7,13 +7,13 @@ import toast from "react-hot-toast";
 import { ChoosePizzaForm } from "../choose-pizza-form";
 import { ChooseProductForm } from "../choose-product-form";
 
-import { TProductWithRelations } from "@/@types/prisma";
+import { ProductWithRelations } from "@/@types/prisma";
 import { Dialog, DialogContent } from "@/components/ui";
 import { useCartStore } from "@/store";
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 
 interface ChooseProductModalProps {
-  product: TProductWithRelations;
+  product: ProductWithRelations;
   className?: string;
 }
 

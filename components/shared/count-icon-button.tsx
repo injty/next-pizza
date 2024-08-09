@@ -1,7 +1,7 @@
 import { Button } from "../ui/button";
 import { CountButtonProps } from "./count-button";
 
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 import { Minus, Plus } from "lucide-react";
 
 interface IconButtonProps {

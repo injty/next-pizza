@@ -1,4 +1,4 @@
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 import { Category } from "@prisma/client";
 import { FC } from "react";
 

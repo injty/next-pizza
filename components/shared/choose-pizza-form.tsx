@@ -12,7 +12,7 @@ import { Title } from "./title";
 import { usePizzaOptions } from "@/hooks";
 import { PizzaSize, PizzaType, pizzaTypes } from "@/utils/constants/pizza";
 import { getPizzaDetails } from "@/utils/helpers";
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 
 interface ChoosePizzaFormProps {
   imageUrl: string;

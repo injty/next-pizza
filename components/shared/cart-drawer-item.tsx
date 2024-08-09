@@ -1,4 +1,4 @@
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 import { FC } from "react";
 
 import * as CartItem from "./cart-item-details";

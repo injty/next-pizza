@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import React from "react";
 

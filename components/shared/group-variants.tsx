@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 import React from "react";
 
 export type Variant = {

@@ -1,4 +1,4 @@
-import { cn } from "@/utils/lib/cn";
+import { cn } from "@/utils/helpers/cn";
 
 interface Props {
   src: string;
