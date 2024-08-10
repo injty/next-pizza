@@ -11,10 +11,12 @@ import { SearchInput } from "./search-input";
 import { cn } from "@/utils/helpers/cn";
 
 interface IProps {
+  hasSearch?: boolean;
+  hasCart?: boolean;
   className?: string;
 }
 
-export const Header: FC<IProps> = ({ className }) => {
+export const Header: FC<IProps> = ({ className, hasSearch = true, hasCart = true }) => {
   return (
     <div className={cn("border-b", className)}>
       <Container className="flex items-center justify-between py-8">
@@ -29,9 +31,11 @@ export const Header: FC<IProps> = ({ className }) => {
           </div>
         </Link>
 
-        <div className="mx-10 flex-1">
-          <SearchInput />
-        </div>
+        {hasSearch && (
+          <div className="mx-10 flex-1">
+            <SearchInput />
+          </div>
+        )}
 
         {/* right side */}
         <div className="flex items-center gap-3">
@@ -40,7 +44,7 @@ export const Header: FC<IProps> = ({ className }) => {
             Войти
           </Button>
 
-          <CartButton />
+          {hasCart && <CartButton />}
         </div>
       </Container>
     </div>

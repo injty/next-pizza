@@ -3,7 +3,7 @@ import { Ingredient } from "@prisma/client";
 import { mapPizzaType, PizzaSize, PizzaType } from "../constants/pizza";
 import { CartStateItem } from "./get-cart-details";
 
-export const getCartItemDetails = (pizzaTipe: PizzaType, pizzaSize: PizzaSize, ingredients: CartStateItem["ingredients"]): string => {
+export const getCartItemDetails = (ingredients: CartStateItem["ingredients"], pizzaTipe?: PizzaType, pizzaSize?: PizzaSize): string => {
   const details = [];
 
   if (pizzaTipe && pizzaSize) {
