@@ -7,8 +7,8 @@ type IngredientItem = Pick<Ingredient, "id" | "name">;
 interface ReturnProps {
   ingredients: IngredientItem[];
   loading: boolean;
-  selectedIngredients: Set<string>;
   onAddId: (id: string) => void;
+  selectedIngredients: Set<string>;
 }
 
 export const useIngredients = () => {

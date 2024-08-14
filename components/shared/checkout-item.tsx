@@ -25,7 +25,7 @@ export const CheckoutItem: FC<CheckoutItemProps> = ({ className, name, price, de
 
       <div className="ml-20 flex items-center gap-5">
         <CartItemDetails.CountButton onClick={onClickCountButton} value={quantity} />
-        <button onClick={onClickRemove}>
+        <button type="button" onClick={onClickRemove}>
           <X size={20} className="cursor-pointer text-gray-400 hover:text-gray-600" />
         </button>
       </div>

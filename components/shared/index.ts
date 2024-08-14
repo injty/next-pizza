@@ -1,5 +1,3 @@
-export * from "./modals";
-
 export { CartButton } from "./cart-button";
 export { CartDrawer } from "./cart-drawer";
 export { Categories } from "./categories";
@@ -26,3 +24,12 @@ export { SortPopup } from "./sort-popup";
 export { Title } from "./title";
 export { TopBar } from "./top-bar";
 export { WhiteBlock } from "./white-block";
+
+export { ClearButton } from "./clear-button";
+export { ErrorText } from "./error-text";
+export { RequiredSymbol } from "./required-symbol";
+
+export * from "./checkout";
+export * from "./email-templates";
+export * from "./form";
+export * from "./modals";

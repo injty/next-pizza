@@ -7,31 +7,31 @@ import { FilterCheckbox, FilterCheckboxProps } from "./filter-checkbox";
 type Item = FilterCheckboxProps;
 
 interface CheckboxFiltersGroupProps {
-  title: string;
-  items: Item[];
+  className?: string;
   defaultItems?: Item[];
+  defaultValue?: string[];
+  items: Item[];
   limit?: number;
   loading?: boolean;
   name?: string;
-  selected: Set<string>;
-  searchInputPlaceholder?: string;
   onClickCheckbox?: (id: string) => void;
-  defaultValue?: string[];
-  className?: string;
+  searchInputPlaceholder?: string;
+  selected: Set<string>;
+  title: string;
 }
 
 export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
-  title,
-  items,
+  className,
   defaultItems,
+  defaultValue,
+  items,
   limit = 5,
   loading,
   name,
-  selected,
-  searchInputPlaceholder = "Поиск...",
   onClickCheckbox,
-  defaultValue,
-  className,
+  searchInputPlaceholder = "Поиск...",
+  selected,
+  title,
 }) => {
   const [showAll, setShowAll] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -46,7 +46,7 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
       <div className={className}>
         <p className="mb-3 font-bold">{title}</p>
         {[...new Array(limit)].map((_, index) => (
-          <Skeleton key={index} className="mb-5 h-6 rounded-[8px]" />
+          <Skeleton className="mb-5 h-6 rounded-[8px]" key={index} />
         ))}
         <Skeleton className="mb-5 h-6 w-28 rounded-[8px]" />
       </div>
@@ -59,27 +59,27 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
 
       {showAll && (
         <div className="mb-5">
-          <Input onChange={onChangeSearchInput} placeholder={searchInputPlaceholder} className="border-none bg-gray-50" />
+          <Input className="border-none bg-gray-50" onChange={onChangeSearchInput} placeholder={searchInputPlaceholder} />
         </div>
       )}
 
       <div className="scrollbar flex max-h-96 flex-col gap-4 overflow-auto pr-2">
         {list.map((item, index) => (
           <FilterCheckbox
+            checked={selected.has(item.value)}
+            endAdornment={item.endAdornment}
             key={index}
+            name={name}
+            onCheckedChange={() => onClickCheckbox?.(item.value)}
             text={item.text}
             value={item.value}
-            endAdornment={item.endAdornment}
-            checked={selected.has(item.value)}
-            onCheckedChange={() => onClickCheckbox?.(item.value)}
-            name={name}
           />
         ))}
       </div>
 
       {items.length > limit && (
         <div className={showAll ? "border-t border-t-neutral-100 pt-4" : ""}>
-          <button className="mt-3 text-primary" onClick={() => setShowAll((prev) => !prev)}>
+          <button className="mt-3 text-primary" onClick={() => setShowAll((prev) => !prev)} type="button">
             {showAll ? "Скрыть" : "+ Показать все"}
           </button>
         </div>

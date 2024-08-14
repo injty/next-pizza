@@ -1,6 +1,24 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:perfectionist/recommended-alphabetical-legacy"
+  ],
+  "plugins": [
+    "perfectionist"
+  ],
   "rules": {
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "perfectionist/sort-imports": "off",
+    "perfectionist/sort-jsx-props": [
+      "error",
+      {
+        "type": "alphabetical",
+        "order": "asc",
+        "ignoreCase": true,
+        "ignorePattern": [],
+        "groups": [],
+        "customGroups": {}
+      }
+    ]
   }
 }

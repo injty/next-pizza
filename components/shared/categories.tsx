@@ -20,7 +20,7 @@ export const Categories: FC<IProps> = ({ items, className }) => {
           className={cn("flex h-11 items-center rounded-2xl px-5 font-bold", categoryActiveId === id && "bg-white text-primary shadow-md shadow-gray-200")}
           key={id}
           href={`#${name}`}>
-          <button>{name}</button>
+          <button type="button">{name}</button>
         </a>
       ))}
     </div>

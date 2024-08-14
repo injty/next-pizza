@@ -21,6 +21,7 @@ export const GroupVariants: React.FC<Props> = ({ items, onClick, className, valu
     <div className={cn(className, "flex select-none justify-between rounded-3xl bg-[#F3F3F7] p-1")}>
       {items.map((item) => (
         <button
+          type="button"
           key={item.name}
           onClick={() => onClick?.(item.value)}
           className={cn("duration-400 flex h-[30px] flex-1 cursor-pointer items-center justify-center rounded-3xl px-5 text-sm transition-all", {
