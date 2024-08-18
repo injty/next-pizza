@@ -6,27 +6,36 @@ import { getCartDetails } from "@/utils/helpers";
 import { CartStateItem } from "@/utils/helpers/get-cart-details";
 
 export interface CartState {
-  loading: boolean;
+  addCartItem: (values: any) => Promise<void>;
   error: boolean;
-  totalAmount: number;
+  fetchCartItems: () => Promise<void>;
   items: CartStateItem[];
 
-  fetchCartItems: () => Promise<void>;
-  updateItemQuantity: (id: number, quantity: number) => Promise<void>;
-  addCartItem: (values: any) => Promise<void>;
+  loading: boolean;
   removeCartItem: (id: number) => Promise<void>;
+  totalAmount: number;
+  updateItemQuantity: (id: number, quantity: number) => Promise<void>;
 }
 
-export const useCartStore = create<CartState>((set, get) => ({
-  items: [],
+export const useCartStore = create<CartState>((set) => ({
+  addCartItem: async (values: CreateCartItemValues) => {
+    try {
+      set({ error: false, loading: true });
+      const data = await Api.cart.addCartItem(values);
+      set(getCartDetails(data));
+    } catch (err) {
+      console.log(err);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
+  },
   error: false,
-  loading: true,
-  totalAmount: 0,
-
   fetchCartItems: async () => {
     try {
-      set({ loading: true, error: false });
+      set({ error: false, loading: true });
       const data = await Api.cart.fetchCart();
+      console.log(data);
       set(getCartDetails(data));
     } catch (err) {
       console.log(err);
@@ -35,37 +44,29 @@ export const useCartStore = create<CartState>((set, get) => ({
       set({ loading: false });
     }
   },
+  items: [],
 
-  updateItemQuantity: async (id: number, quantity: number) => {
-    try {
-      set({ loading: true, error: false });
-      const data = await Api.cart.updateItemQuantity(id, quantity);
-      set(getCartDetails(data));
-    } catch (err) {
-      console.log(err);
-      set({ error: true });
-    } finally {
-      set({ loading: false });
-    }
-  },
+  loading: true,
 
   removeCartItem: async (id: number) => {
     try {
-      set((state) => ({ loading: true, error: false, items: state.items.map((item) => (item.id === id ? { ...item, disabled: true } : item)) }));
+      set((state) => ({ error: false, items: state.items.map((item) => (item.id === id ? { ...item, disabled: true } : item)), loading: true }));
       const data = await Api.cart.removeCartItem(id);
       set(getCartDetails(data));
     } catch (err) {
       console.log(err);
       set({ error: true });
     } finally {
-      set((state) => ({ loading: false, items: state.items.map((item) => ({ ...item, disabled: false })) }));
+      set((state) => ({ items: state.items.map((item) => ({ ...item, disabled: false })), loading: false }));
     }
   },
 
-  addCartItem: async (values: CreateCartItemValues) => {
+  totalAmount: 0,
+
+  updateItemQuantity: async (id: number, quantity: number) => {
     try {
-      set({ loading: true, error: false });
-      const data = await Api.cart.addCartItem(values);
+      set({ error: false, loading: true });
+      const data = await Api.cart.updateItemQuantity(id, quantity);
       set(getCartDetails(data));
     } catch (err) {
       console.log(err);

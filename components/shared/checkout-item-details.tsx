@@ -2,9 +2,9 @@ import { cn } from "@/utils/helpers/cn";
 import { FC, ReactNode } from "react";
 
 interface CheckoutItemDetailsProps {
+  className?: string;
   title?: ReactNode;
   value?: ReactNode;
-  className?: string;
 }
 
 export const CheckoutItemDetails: FC<CheckoutItemDetailsProps> = ({ className, title, value }) => {

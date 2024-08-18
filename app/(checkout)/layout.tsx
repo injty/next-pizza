@@ -12,9 +12,9 @@ export default function CheckoutLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <main className="min-h-screen bg-[#f4f1ee]">
+    <main className="min-h-screen bg-[#f4f1ee] px-5">
       <Container>
-        <Header className="border-b-gray-200" hasSearch={false} hasCart={false} />
+        <Header className="border-b-gray-200" hasCart={false} hasSearch={false} />
         {children}
       </Container>
     </main>

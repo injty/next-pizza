@@ -9,18 +9,18 @@ import { ErrorText } from "../error-text";
 import { RequiredSymbol } from "../required-symbol";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  label?: string;
-  required?: boolean;
   className?: string;
+  label?: string;
+  name: string;
+  required?: boolean;
 }
 
-export const FormInput: FC<Props> = ({ name, label, required, className, ...props }) => {
+export const FormInput: FC<Props> = ({ className, label, name, required, ...props }) => {
   const {
-    register,
     formState: { errors },
-    watch,
+    register,
     setValue,
+    watch,
   } = useFormContext();
 
   const value = watch(name);
@@ -41,7 +41,7 @@ export const FormInput: FC<Props> = ({ name, label, required, className, ...prop
         <Input className="h-12 text-base" {...register(name)} {...props} />
         {value && <ClearButton onClick={onClickClear} />}
       </div>
-      {error && <ErrorText text={error} className="mt-2" />}
+      {error && <ErrorText className="mt-2" text={error} />}
     </div>
   );
 };

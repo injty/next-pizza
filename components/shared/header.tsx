@@ -1,18 +1,16 @@
 "use client";
 
+import { cn } from "@/utils/helpers/cn";
 import Image from "next/image";
 import Link from "next/link";
-import { FC, useEffect } from "react";
-
-import { User } from "lucide-react";
-import { Button } from "../ui";
+import { useSearchParams } from "next/navigation";
+import { FC, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { CartButton } from "./cart-button";
 import { Container } from "./container";
+import { AuthModal } from "./modals";
+import { ProfileButton } from "./profile-button";
 import { SearchInput } from "./search-input";
-
-import { cn } from "@/utils/helpers/cn";
-import { useSearchParams } from "next/navigation";
-import toast from "react-hot-toast";
 
 interface IProps {
   className?: string;
@@ -21,6 +19,8 @@ interface IProps {
 }
 
 export const Header: FC<IProps> = ({ className, hasCart = true, hasSearch = true }) => {
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -29,13 +29,22 @@ export const Header: FC<IProps> = ({ className, hasCart = true, hasSearch = true
         toast.success("Заказ успешно оплачен! Информация отправлена на почту.");
       }
     }, 500);
-    console.log(timer);
 
-    return () => clearTimeout(timer);
+    const timer2 = setTimeout(() => {
+      if (searchParams.has("verified")) {
+        toast.success("Аккаунт успешно подтвержден!");
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+    };
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <div className={cn("border-b", className)}>
+    <div className={cn("border-b px-5", className)}>
       <Container className="flex items-center justify-between py-8">
         {/* left side  */}
         <Link href="/">
@@ -56,11 +65,8 @@ export const Header: FC<IProps> = ({ className, hasCart = true, hasSearch = true
 
         {/* right side */}
         <div className="flex items-center gap-3">
-          <Button className="flex items-center gap-3" variant="outline">
-            <User size={16} />
-            Войти
-          </Button>
-
+          <AuthModal onClose={() => setOpenAuthModal(false)} open={openAuthModal} />
+          <ProfileButton handleClickSignIn={() => setOpenAuthModal(true)} />
           {hasCart && <CartButton />}
         </div>
       </Container>

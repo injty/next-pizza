@@ -8,13 +8,14 @@ interface CheckoutPersonalFormProps {
 }
 
 export const CheckoutPersonalForm: FC<CheckoutPersonalFormProps> = ({ className }) => {
+
   return (
-    <WhiteBlock title="2. Персональные данные" className={className}>
+    <WhiteBlock className={className} title="2. Персональные данные">
       <div className="grid grid-cols-2 gap-5">
-        <FormInput name="firstName" className="text-base" placeholder="Имя" />
-        <FormInput name="lastName" className="text-base" placeholder="Фамилия" />
-        <FormInput name="email" className="text-base" placeholder="E-mail" />
-        <FormInput name="phone" className="text-base" placeholder="Моб. номер" />
+        <FormInput className="text-base" name="firstName" placeholder="Имя" />
+        <FormInput className="text-base" name="lastName" placeholder="Фамилия" />
+        <FormInput className="text-base" name="email" placeholder="E-mail" />
+        <FormInput className="text-base" name="phone" placeholder="Моб. номер" />
       </div>
     </WhiteBlock>
   );

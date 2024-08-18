@@ -13,8 +13,8 @@ export const useQueryFilters = (filters: Filters) => {
       const params = {
         ...filters.prices,
         pizzaTypes: Array.from(filters.pizzaTypes),
-        sizes: Array.from(filters.sizes),
         selectedIngredients: Array.from(filters.selectedIngredients),
+        sizes: Array.from(filters.sizes),
       };
 
       const queryString = qs.stringify(params, {
@@ -22,7 +22,6 @@ export const useQueryFilters = (filters: Filters) => {
       });
 
       router.push(`?${queryString}`, { scroll: false });
-      console.log(filters);
     }
 
     isMounted.current = true;

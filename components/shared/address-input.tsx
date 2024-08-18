@@ -10,5 +10,5 @@ interface AddressInputProps {
 }
 
 export const AddressInput: FC<AddressInputProps> = ({ onChange }) => {
-  return <AddressSuggestions token="9af2202e1faaae8fc9a29f32dabbcbf9f7ee8c66" onChange={(data) => onChange(data?.value as string)} />;
+  return <AddressSuggestions onChange={(data) => onChange(data?.value as string)} token="9af2202e1faaae8fc9a29f32dabbcbf9f7ee8c66" />;
 };

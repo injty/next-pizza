@@ -14,16 +14,16 @@ enum UserRole {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   fullname   String
-  email      String   @unique
+  email      String    @unique
   password   String
-  role       UserRole @default(USER)
+  role       UserRole  @default(USER)
   provider   String?
   providerId String?
-  verified   DateTime
-  createddAt DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  verified   DateTime?
+  createddAt DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   cart             Cart?
   orders           Order[]
@@ -127,11 +127,26 @@ model Order {
 
 model VerificationCode {
   id        Int      @id @default(autoincrement())
-  code      String   @unique
+  code      String
   createdAt DateTime @default(now())
 
   user   User @relation(fields: [userId], references: [id])
   userId Int  @unique
 
   @@unique([userId, code])
+}
+
+model Story {
+  id              Int         @id @default(autoincrement())
+  previewImageUrl String
+  items           StoryItem[]
+  createdAt       DateTime    @default(now())
+}
+
+model StoryItem {
+  id        Int      @id @default(autoincrement())
+  storyId   Int
+  story     Story    @relation(fields: [storyId], references: [id])
+  sourceUrl String
+  createdAt DateTime @default(now())
 }

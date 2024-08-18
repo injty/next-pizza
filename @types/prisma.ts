@@ -1,6 +1,6 @@
 import { Ingredient, Product, ProductItem } from "@prisma/client";
 
-export type ProductWithRelations = Product & {
-  items: ProductItem[];
+export type ProductWithRelations = {
   ingredients: Ingredient[];
-};
+  items: ProductItem[];
+} & Product;

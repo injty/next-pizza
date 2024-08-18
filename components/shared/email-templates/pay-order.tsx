@@ -2,11 +2,11 @@ import * as React from "react";
 
 interface PayOrderProps {
   orderId: number;
-  totalAmount: number;
   paymentUrl: string;
+  totalAmount: number;
 }
 
-export const PayOrder: React.FC<Readonly<PayOrderProps>> = ({ orderId, totalAmount, paymentUrl }) => (
+export const PayOrder: React.FC<Readonly<PayOrderProps>> = ({ orderId, paymentUrl, totalAmount }) => (
   <div>
     <h1>Заказ #{orderId}!</h1>
 

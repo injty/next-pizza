@@ -29,7 +29,7 @@ export const CheckoutAddress: FC<CheckoutAddressProps> = ({ className }) => {
           )}
         />
 
-        <FormTextarea name="comment" className="text-base" rows={5} placeholder="Комментарии к заказу" />
+        <FormTextarea className="text-base" name="comment" placeholder="Комментарии к заказу" rows={5} />
       </div>
     </WhiteBlock>
   );

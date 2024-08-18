@@ -3,7 +3,9 @@ import { CartDTO, CreateCartItemValues } from "./dto/cart.dto";
 import { instance } from "./instance";
 
 export const fetchCart = async (): Promise<CartDTO> => {
-  return (await instance.get<CartDTO>(ApiRoutes.CART)).data;
+  const { data } = await instance.get<CartDTO>(ApiRoutes.CART);
+  console.log(data);
+  return data;
 };
 
 export const updateItemQuantity = async (itemId: number, quantity: number): Promise<CartDTO> => {

@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -7,24 +9,42 @@ import { CheckoutAddress, CheckoutCart, CheckoutPersonalForm, CheckoutSidebar, C
 
 import { createOrder } from "@/app/actions";
 import { useCart } from "@/hooks";
-import { CheckoutFormValues, checkoutFormSchema } from "@/utils/constants";
+import { Api } from "@/services/api-client";
+import { checkoutFormSchema, CheckoutFormValues } from "@/utils/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function CheckoutPage() {
+  const { data: session } = useSession();
   const [submiting, setSubmiting] = useState(false);
-  const { items, totalAmount, updateItemQuantity, removeCartItem, loading } = useCart();
+  const { items, loading, removeCartItem, totalAmount, updateItemQuantity } = useCart();
 
   const form = useForm<CheckoutFormValues>({
-    resolver: zodResolver(checkoutFormSchema),
     defaultValues: {
+      address: "",
+      comment: "",
       email: "",
       firstName: "",
       lastName: "",
       phone: "",
-      address: "",
-      comment: "",
     },
+    resolver: zodResolver(checkoutFormSchema),
   });
+
+  useEffect(() => {
+    async function fetchUserInfo() {
+      const data = await Api.auth.getMe();
+      const [firstName, lastName] = data.fullname.split(" ");
+
+      form.setValue("firstName", firstName);
+      form.setValue("lastName", lastName);
+      form.setValue("email", data.email);
+    }
+
+    if (session) {
+      fetchUserInfo();
+    }
+    // eslint-disable-next-line
+  }, []);
 
   const onSubmit = async (data: CheckoutFormValues) => {
     try {
@@ -43,17 +63,17 @@ export default function CheckoutPage() {
 
   return (
     <Container className="mt-10">
-      <Title text="Оформление заказа" size="lg" className="mb-8 font-extrabold" />
+      <Title className="mb-8 font-extrabold" size="lg" text="Оформление заказа" />
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex gap-10">
             <div className="mb-20 flex flex-1 flex-col gap-10">
-              <CheckoutCart items={items} loading={loading} updateItemQuantity={updateItemQuantity} removeCartItem={removeCartItem} />
+              <CheckoutCart items={items} loading={loading} removeCartItem={removeCartItem} updateItemQuantity={updateItemQuantity} />
               <CheckoutPersonalForm className={loading ? "pointer-events-none select-none opacity-45" : ""} />
               <CheckoutAddress className={loading ? "pointer-events-none select-none opacity-45" : ""} />
             </div>
 
-            <CheckoutSidebar totalAmount={totalAmount} loading={loading || submiting} />
+            <CheckoutSidebar loading={loading || submiting} totalAmount={totalAmount} />
           </div>
         </form>
       </FormProvider>
